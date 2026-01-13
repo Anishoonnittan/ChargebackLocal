@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import { useAction } from 'convex/react';
 
 export default function LoginPage() {
 const router = useRouter();
@@ -13,8 +14,10 @@ const [isSignUp, setIsSignUp] = useState(false);
 const [loading, setLoading] = useState(false);
 const [error, setError] = useState('');
 
-const signIn = useMutation(api.auth.signIn);
-const signUp = useMutation(api.auth.signUp);
+import { useAction } from 'convex/react';
+
+const signIn = useAction(api.auth.signIn);
+const signUp = useAction(api.auth.signUp);
 
 const handleSubmit = async (e: React.FormEvent) => {
 e.preventDefault();
