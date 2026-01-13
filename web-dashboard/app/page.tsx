@@ -14,7 +14,6 @@ const [isSignUp, setIsSignUp] = useState(false);
 const [loading, setLoading] = useState(false);
 const [error, setError] = useState('');
 
-import { useAction } from 'convex/react';
 
 const signIn = useAction(api.auth.signIn);
 const signUp = useAction(api.auth.signUp);
