@@ -13,8 +13,8 @@ setSessionToken(token);
 }, []);
 
 const orders = useQuery(
-sessionToken ? api.preAuthCheck.getPostAuthOrders : 'skip',
-sessionToken ? { sessionToken } : 'skip'
+  api.preAuthCheck.getPostAuthOrders,
+  sessionToken ? { sessionToken } : "skip"
 );
 
 return (
