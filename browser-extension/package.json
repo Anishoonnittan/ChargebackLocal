@@ -1,0 +1,23 @@
+{
+  "name": "trueprofile-pro-extension",
+  "version": "1.0.0",
+  "description": "TrueProfile Pro Browser Extension - Scan social profiles for scams in real-time",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack --mode development --watch",
+    "clean": "rm -rf dist",
+    "package": "npm run build && cd dist && zip -r ../trueprofile-pro-extension.zip ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "copy-webpack-plugin": "^11.0.0"
+  },
+  "author": "TrueProfile Pro",
+  "license": "Proprietary",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trueprofilepro/extension"
+  }
+}

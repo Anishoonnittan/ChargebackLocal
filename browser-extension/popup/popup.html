@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScamShield Pro</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Not Signed In State -->
+    <div id="not-signed-in" class="section hidden">
+      <div class="header">
+        <img src="../assets/icon-48.png" alt="ScamShield Pro" class="logo">
+        <div>
+          <h1>ScamShield Pro</h1>
+          <p class="subtitle">Protecting Australians from scams</p>
+        </div>
+      </div>
+      
+      <div class="empty-state">
+        <span class="emoji">🔐</span>
+        <h2>Sign In Required</h2>
+        <p>Sign in to ScamShield Pro to scan profiles and detect scams.</p>
+        <button id="sign-in-btn" class="btn btn-primary">Sign In</button>
+        <button id="sign-up-btn" class="btn btn-secondary">Create Account</button>
+      </div>
+    </div>
+
+    <!-- Signed In State -->
+    <div id="signed-in" class="section hidden">
+      <!-- Main Navigation Tabs -->
+      <nav class="main-tabs">
+        <button class="main-tab active" data-tab="dashboard">
+          <span class="tab-icon">🏠</span>
+          <span class="tab-label">Dashboard</span>
+        </button>
+        <button class="main-tab" data-tab="scanner">
+          <span class="tab-icon">🔍</span>
+          <span class="tab-label">Scanner</span>
+        </button>
+        <button class="main-tab" data-tab="history">
+          <span class="tab-icon">📊</span>
+          <span class="tab-label">History</span>
+        </button>
+        <button class="main-tab" data-tab="community">
+          <span class="tab-icon">🛡️</span>
+          <span class="tab-label">Community</span>
+        </button>
+        <button class="main-tab" data-tab="settings">
+          <span class="tab-icon">⚙️</span>
+          <span class="tab-label">Settings</span>
+        </button>
+      </nav>
+
+      <!-- Dashboard Tab -->
+      <div id="tab-dashboard" class="main-tab-content active">
+        <div class="hero-section">
+          <div class="hero-header">
+            <div>
+              <h2 id="welcome-text">G'day 👋</h2>
+              <p id="account-badge" class="account-badge">Personal Account</p>
+            </div>
+            <img id="profile-pic" src="../assets/icon-48.png" class="profile-pic" alt="Profile">
+          </div>
+          
+          <div class="stats-row">
+            <div class="stat-item">
+              <div class="stat-value" id="dashboard-scans">0</div>
+              <div class="stat-label">Scans</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-value" id="dashboard-real">0</div>
+              <div class="stat-label">Real</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <div class="stat-value" id="dashboard-blocked">0</div>
+              <div class="stat-label">Blocked</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="segment-stats" id="segment-stats">
+          <!-- Will be populated dynamically based on account type -->
+        </div>
+
+        <div class="quick-actions">
+          <h3>Quick Actions</h3>
+          <button class="action-btn" data-action="scan-profile">
+            <span class="action-icon">👤</span>
+            <span class="action-text">Scan Profile</span>
+          </button>
+          <button class="action-btn" data-action="scan-link">
+            <span class="action-icon">🔗</span>
+            <span class="action-text">Scan Link</span>
+          </button>
+          <button class="action-btn" data-action="scan-email">
+            <span class="action-icon">📧</span>
+            <span class="action-text">Verify Email</span>
+          </button>
+          <button class="action-btn" data-action="scan-message">
+            <span class="action-icon">💬</span>
+            <span class="action-text">Scan Message</span>
+          </button>
+        </div>
+
+        <div class="your-stats">
+          <h3>📈 Your Stats</h3>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card-emoji">🟢</div>
+              <div class="stat-card-value" id="real-humans">0</div>
+              <div class="stat-card-label">Real Humans</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-emoji">⚠️</div>
+              <div class="stat-card-value" id="suss-accounts">0</div>
+              <div class="stat-card-label">Suss Accounts</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-emoji">🔴</div>
+              <div class="stat-card-value" id="fakes-caught">0</div>
+              <div class="stat-card-label">Fakes Caught</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-emoji">🔍</div>
+              <div class="stat-card-value" id="total-scans">0</div>
+              <div class="stat-card-label">Total Scans</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scanner Tab -->
+      <div id="tab-scanner" class="main-tab-content">
+        <!-- Scanner Sub-tabs -->
+        <div class="sub-tabs">
+          <button class="sub-tab active" data-subtab="profile">👤 Profile</button>
+          <button class="sub-tab" data-subtab="link">🔗 Link</button>
+          <button class="sub-tab" data-subtab="email">📧 Email</button>
+          <button class="sub-tab" data-subtab="message">💬 Message</button>
+        </div>
+
+        <!-- Profile Scanner -->
+        <div id="subtab-profile" class="sub-tab-content active">
+          <div class="scanner-card">
+            <h3>👤 Profile Scanner</h3>
+            <p class="hint">Navigate to a social media profile and click scan</p>
+            <button id="scan-profile-btn" class="btn btn-primary btn-large">
+              🔍 Scan This Profile
+            </button>
+            <div id="profile-result" class="result-area hidden"></div>
+          </div>
+        </div>
+
+        <!-- Link Scanner -->
+        <div id="subtab-link" class="sub-tab-content">
+          <div class="scanner-card">
+            <h3>🔗 Link Scanner</h3>
+            <label for="link-input">Paste suspicious URL:</label>
+            <input 
+              type="url" 
+              id="link-input" 
+              placeholder="https://suspicious-website.com"
+              class="input-field"
+            />
+            <button id="scan-link-btn" class="btn btn-primary btn-large">
+              🔗 Scan Link
+            </button>
+            <div id="link-result" class="result-area hidden"></div>
+          </div>
+        </div>
+
+        <!-- Email Scanner -->
+        <div id="subtab-email" class="sub-tab-content">
+          <div class="scanner-card">
+            <h3>📧 Email Verifier</h3>
+            <label for="email-input">Enter email address:</label>
+            <input 
+              type="email" 
+              id="email-input" 
+              placeholder="example@domain.com"
+              class="input-field"
+            />
+            <button id="scan-email-btn" class="btn btn-primary btn-large">
+              📧 Verify Email
+            </button>
+            <div id="email-result" class="result-area hidden"></div>
+          </div>
+        </div>
+
+        <!-- Message Scanner -->
+        <div id="subtab-message" class="sub-tab-content">
+          <div class="scanner-card">
+            <h3>💬 Message Analyzer</h3>
+            <label for="message-input">Paste suspicious message:</label>
+            <textarea 
+              id="message-input" 
+              placeholder="Paste the message text here..."
+              class="textarea-field"
+              rows="6"
+            ></textarea>
+            <button id="scan-message-btn" class="btn btn-primary btn-large">
+              💬 Analyze Message
+            </button>
+            <div id="message-result" class="result-area hidden"></div>
+          </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading" class="loading-overlay hidden">
+          <div class="spinner"></div>
+          <p>Scanning...</p>
+        </div>
+      </div>
+
+      <!-- History Tab -->
+      <div id="tab-history" class="main-tab-content">
+        <div class="tab-header">
+          <h2>📊 Scan History</h2>
+          <select id="history-filter" class="filter-select">
+            <option value="all">All Scans</option>
+            <option value="high">High Risk</option>
+            <option value="medium">Medium Risk</option>
+            <option value="low">Low Risk</option>
+            <option value="today">Today</option>
+            <option value="week">This Week</option>
+          </select>
+        </div>
+        
+        <div id="history-list" class="history-list">
+          <div class="empty-state">
+            <span class="emoji">📭</span>
+            <p>No scan history yet</p>
+            <small>Your scans will appear here</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Community Tab -->
+      <div id="tab-community" class="main-tab-content">
+        <div class="tab-header">
+          <h2>🛡️ Community Safety</h2>
+        </div>
+
+        <div class="community-stats">
+          <div class="community-stat">
+            <span class="community-stat-value" id="community-reports">0</span>
+            <span class="community-stat-label">Reports This Week</span>
+          </div>
+          <div class="community-stat">
+            <span class="community-stat-value" id="community-scans">0</span>
+            <span class="community-stat-label">Scans Today</span>
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3>🗺️ Scam Hotspots by State</h3>
+          <div id="hotspots-list" class="hotspots-list">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <div class="section-card">
+          <h3>🚨 Top Scam Phrases</h3>
+          <div id="scam-phrases-list" class="scam-phrases-list">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <button id="report-scam-btn" class="btn btn-primary btn-large">
+          🚨 Report a Scam
+        </button>
+      </div>
+
+      <!-- Settings Tab -->
+      <div id="tab-settings" class="main-tab-content">
+        <div class="tab-header">
+          <h2>⚙️ Settings</h2>
+        </div>
+
+        <div class="settings-section">
+          <h3>Backend</h3>
+          <div class="setting-item">
+            <div style="margin-bottom: 8px;">Convex Deployment URL</div>
+            <input
+              id="convex-url"
+              class="input-field"
+              type="url"
+              placeholder="https://YOUR-DEPLOYMENT.convex.cloud"
+            />
+            <button id="save-convex-url-btn" class="btn btn-secondary" style="margin-top: 10px;">
+              Save Backend URL
+            </button>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Account</h3>
+          <div class="setting-item">
+            <span id="user-email">user@example.com</span>
+          </div>
+          <div class="setting-item">
+            <span id="account-type">Personal Account</span>
+          </div>
+        </div>
+
+        <div class="settings-section">
+          <h3>Subscription</h3>
+          <div class="setting-item">
+            <span id="subscription-plan">Free Plan</span>
+          </div>
+          <button id="upgrade-btn" class="btn btn-primary">Upgrade to Premium</button>
+        </div>
+
+        <div class="settings-section">
+          <h3>Preferences</h3>
+          <label class="setting-toggle">
+            <input type="checkbox" id="auto-scan" />
+            <span>Auto-scan profiles</span>
+          </label>
+          <label class="setting-toggle">
+            <input type="checkbox" id="notifications-enabled" checked />
+            <span>Enable notifications</span>
+          </label>
+          <label class="setting-toggle">
+            <input type="checkbox" id="watchlist-alerts" checked />
+            <span>Watchlist alerts</span>
+          </label>
+        </div>
+
+        <div class="settings-section">
+          <h3>Data</h3>
+          <button id="clear-cache-btn" class="btn btn-secondary">Clear Cache</button>
+          <button id="export-history-btn" class="btn btn-secondary">Export History</button>
+        </div>
+
+        <div class="settings-section">
+          <button id="sign-out-btn" class="btn btn-danger">Sign Out</button>
+        </div>
+
+        <div class="settings-footer">
+          <p>ScamShield Pro v2.0.0</p>
+          <p><a href="https://scamshieldpro.com.au/privacy" target="_blank">Privacy Policy</a> | <a href="https://scamshieldpro.com.au/terms" target="_blank">Terms</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

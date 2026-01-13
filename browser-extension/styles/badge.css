@@ -1,0 +1,25 @@
+/* TrueProfile Pro - Injected Badge Styles */
+
+.trueprofile-badge {
+  z-index: 999999;
+  position: relative;
+}
+
+.trueprofile-badge-content {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+  line-height: 1 !important;
+  user-select: none;
+}
+
+/* Modal Overlay */
+#trueprofile-modal {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+#trueprofile-modal * {
+  box-sizing: border-box;
+}
+
+#trueprofile-modal button:hover {
+  opacity: 0.9;
+}
